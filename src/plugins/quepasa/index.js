@@ -11,7 +11,6 @@ import { converse } from "@converse/headless/core";
 
 converse.plugins.add('quepasa', {
      initialize: function () {
-         alert('myplugin initialize called!');
      },
      overrides: {
          ChatBoxView: {

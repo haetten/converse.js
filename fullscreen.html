@@ -14,6 +14,8 @@
     <link type="text/css" rel="stylesheet" media="screen" href="/dist/converse.min.css" />
     <script src="https://cdn.conversejs.org/3rdparty/libsignal-protocol.min.js"></script>
     <script src="/dist/converse.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd7NyFL18n33jXglGX8CpWFnZHBTda-2Q&callback=initmap">
+        </script>
 </head>
 <body class="converse-fullscreen">
 <noscript>You need to enable JavaScript to run the Converse.js chat app.</noscript>
@@ -59,5 +61,85 @@
         whitelisted_plugins: ['quepasa']
     });
 </script>
+
+    <script>
+
+          function criaMarcador(lat, lng, icone, mensagem, mouseout=true){
+            var userMarker = new google.maps.Marker({
+                position: { lat: lat, lng: lng },
+                map: map
+            });
+
+                userMarker.setIcon(icone);
+
+            var infowindow = new google.maps.InfoWindow({
+              content: mensagem
+            });
+            google.maps.event.addListener(userMarker, 'click', function() {
+              infowindow.open(map,userMarker);
+            });
+            /*
+            google.maps.event.addListener(userMarker, 'mouseover', function() {
+              infowindow.open(map,userMarker);
+            });*/
+            google.maps.event.addListener(map, 'click', function() {
+              infowindow.close(map,userMarker);
+            });/*
+            if(mouseout){
+                google.maps.event.addListener(userMarker, 'mouseout', function() {
+                  infowindow.close(map,userMarker);
+                });
+
+            }*/
+
+            return userMarker;
+          }
+
+        function initMap() {
+
+            var im = 'http://www.robotwoods.com/dev/misc/bluecircle.png';
+            var myLatLng = null;
+
+              map = new google.maps.Map(document.getElementById("mapa"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 14,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+              });
+
+
+            var userMarker = criaMarcador(-34.397, 150.644, im, "Você está aqui!");
+
+
+             navigator.geolocation.getCurrentPosition(
+                (position) => {
+                  const pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                  };
+
+                  userMarker.setPosition(pos);
+                  map.setCenter(pos);
+                },
+                () => {
+                }
+              );
+
+
+            criaMarcador(-15.778466324418028, -47.88605394609443, null, "Sala 01");
+            criaMarcador(-15.779292288838215, -47.88652601488105, null, "Sala 02");
+            
+            criaMarcador(-15.782533909674745, -47.921914382830956, 
+                        null,
+                        "Sala 03 <a href='www.google.com'>clique</a>"
+                        , true);
+
+
+
+        }
+        setTimeout(initMap,5000);
+
+
+
+    </script>
 </body>
 </html>

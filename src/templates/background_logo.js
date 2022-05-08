@@ -8,10 +8,11 @@ export default () => html`
         <div class="converse-brand__padding"></div>
         <div class="converse-brand__heading">
             
-        MAPA COM MARCADORES AQUI
+        
 
-        <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=MYAPIKEY&callback=initmap">
-        </script>
+        <div id="mapa" style="display:block; width:100%; height: 100vh">MAPA COM MARCADORES AQUI</div>
+
         </div>
-    </div>`;
+    </div>
+    
+    `;
