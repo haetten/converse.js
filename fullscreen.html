@@ -47,13 +47,16 @@
     For more information, please refer to <http://unlicense.org/>
     @licend
     */
+
+
     converse.initialize({
         authentication: 'login',
         auto_away: 300,
         auto_reconnect: true,
-        bosh_service_url: 'https://conversejs.org/http-bind/', // Please use this connection manager only for testing purposes
+        bosh_service_url: 'http://localhost:5280/',
         message_archiving: 'always',
-        view_mode: 'fullscreen'
+        view_mode: 'fullscreen',
+        whitelisted_plugins: ['quepasa']
     });
 </script>
 </body>
