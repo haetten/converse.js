@@ -10,7 +10,9 @@ export default () => html`
             
         
 
-        <div id="mapa" style="display:block; width:100%; height: 100vh">MAPA COM MARCADORES AQUI</div>
+        <div id="mapa" style="/*display:block; width:100%; height: 100vh*/"
+            class="flyout box-flyout"
+        >QuePasa</div>
 
         </div>
     </div>
