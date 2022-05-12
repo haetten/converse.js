@@ -4,7 +4,7 @@ import { html } from "lit";
 
 
 
-export default () => {
-    return html`
-        asdf`;
+export default (el) => {
+    _converse.log.info("\"quepasa-mapa\" - no template");
+    return html`template_mapa`;
 }

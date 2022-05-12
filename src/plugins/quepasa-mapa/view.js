@@ -1,24 +1,28 @@
 import tpl_mapa from "./templates/mapa.js";
 import { CustomElement } from 'shared/components/element.js';
+import { _converse, api, converse } from "@converse/headless/core";
+
+/*
+import { CustomElement } from 'shared/components/element.js';
 import { __ } from 'i18n';
 import { _converse, api, converse } from "@converse/headless/core";
 import { initStorage } from '@converse/headless/utils/storage.js';
 import { isUniView } from '@converse/headless/utils/core.js';
 import { getAttributes } from '@converse/headless/shared/parsers';
-
 const { Strophe, u } = converse.env;
+*/
 
 export class Mapa extends CustomElement {
 
     initialize () {
-        alert('abc');
-        this.updateRoomsList ();
+        _converse.log.info("\"quepasa-mapa\" - na view");
+        //this.updateRoomsList ();
     }
 
     render () {
-         return tpl_mapa();
+         return tpl_mapa(this);
     }
-
+/*
     async openRoom (ev) { // eslint-disable-line class-methods-use-this
         ev.preventDefault();
         const name = ev.target.textContent;
@@ -40,10 +44,8 @@ export class Mapa extends CustomElement {
     }
 
 
-    /**
-     * Handle the IQ stanza returned from the server, containing
-     * all its public groupchats.
-     */
+    
+    // Handle the IQ stanza returned from the server, containing all its public groupchats.    
     onRoomsFound (iq) {
         //this.loading_items = false;
         const rooms = iq ? sizzle('query item', iq) : [];
@@ -59,9 +61,7 @@ export class Mapa extends CustomElement {
         return true;
     }
 
-    /**
-     * Send an IQ stanza to the server asking for all groupchats
-     */
+    // Send an IQ stanza to the server asking for all groupchats
     updateRoomsList () {
         const iq = $iq({
             'to': "muc.localhost", //this.model.get('muc_domain'),
@@ -72,6 +72,7 @@ export class Mapa extends CustomElement {
             .then(iq => this.onRoomsFound(iq))
             .catch(() => this.onRoomsFound())
     }
+*/
 
 }
 
