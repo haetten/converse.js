@@ -38,6 +38,7 @@ import "./plugins/singleton/index.js";
 /* END: Removable components */
 
 import "./plugins/quepasa/index.js";
+import "./plugins/quepasa-mapa/index.js";
 
 _converse.CustomElement = CustomElement;
 

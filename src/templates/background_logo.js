@@ -10,7 +10,7 @@ export default () => html`
             
         
 
-        <div id="mapa" style="/*display:block; width:100%; height: 100vh*/"
+        <div id="mapax" style="/*display:block; width:100%; height: 100vh*/"
             class="flyout box-flyout"
         >QuePasa</div>
 
