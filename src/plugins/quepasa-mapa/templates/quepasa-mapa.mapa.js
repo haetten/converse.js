@@ -44,7 +44,10 @@ export default (o) => {
 const tpl_item = (o, item) => {
 	/*
 	
-*/ criaMarcador(-15.778466324418028, -47.88605394609443, null, "Sala 01");
+*/ 
+	if(o && o.items && o.items.length>0){
+		criaMarcador(-15.778466324418028, -47.88605394609443, null, "Sala 01");
+	}
     return html`
 		
         criaMarcador(-15.782533909674745, -47.921914382830956, 

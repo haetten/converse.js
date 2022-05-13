@@ -66,34 +66,39 @@
     <script>
 
           function criaMarcador(lat, lng, icone, mensagem, mouseout=true){
-            var userMarker = new google.maps.Marker({
-                position: { lat: lat, lng: lng },
-                map: map
-            });
-
-                userMarker.setIcon(icone);
-
-            var infowindow = new google.maps.InfoWindow({
-              content: mensagem
-            });
-            google.maps.event.addListener(userMarker, 'click', function() {
-              infowindow.open(map,userMarker);
-            });
-            /*
-            google.maps.event.addListener(userMarker, 'mouseover', function() {
-              infowindow.open(map,userMarker);
-            });*/
-            google.maps.event.addListener(map, 'click', function() {
-              infowindow.close(map,userMarker);
-            });/*
-            if(mouseout){
-                google.maps.event.addListener(userMarker, 'mouseout', function() {
-                  infowindow.close(map,userMarker);
-                });
-
-            }*/
-
-            return userMarker;
+        	if (typeof map !== 'undefined'){
+	
+	
+	              
+	            var userMarker = new google.maps.Marker({
+	                position: { lat: lat, lng: lng },
+	                map: map
+	            });
+	
+	                userMarker.setIcon(icone);
+	
+	            var infowindow = new google.maps.InfoWindow({
+	              content: mensagem
+	            });
+	            google.maps.event.addListener(userMarker, 'click', function() {
+	              infowindow.open(map,userMarker);
+	            });
+	            /*
+	            google.maps.event.addListener(userMarker, 'mouseover', function() {
+	              infowindow.open(map,userMarker);
+	            });*/
+	            google.maps.event.addListener(map, 'click', function() {
+	              infowindow.close(map,userMarker);
+	            });/*
+	            if(mouseout){
+	                google.maps.event.addListener(userMarker, 'mouseout', function() {
+	                  infowindow.close(map,userMarker);
+	                });
+	
+	            }*/
+	
+	            return userMarker;
+	          }
           }
 
         function initMap() {
