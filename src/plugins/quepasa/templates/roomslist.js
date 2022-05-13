@@ -39,6 +39,11 @@ export default (o) => {
     return html`
         <div class="d-flex controlbox-padded">
             <span class="w-100 controlbox-heading controlbox-heading--groupchats">${i18n_heading_chatrooms}</span>
+            <a class="controlbox-heading__btn show-list-muc-modal"
+                @click=${(ev) => api.modal.show(MUCListModal, { 'model': o.model }, ev)}
+                title="${i18n_title_list_rooms}" data-toggle="modal" data-target="#muc-list-modal">
+                    <converse-icon class="fa fa-list-ul right" path-prefix="/dist" size="1em"></converse-icon>
+            </a>
             <a class="controlbox-heading__btn show-add-muc-modal"
                 @click=${(ev) => api.modal.show(AddMUCModal, { 'model': o.model }, ev)}
                 title="${i18n_title_new_room}" data-toggle="modal" data-target="#add-chatrooms-modal">

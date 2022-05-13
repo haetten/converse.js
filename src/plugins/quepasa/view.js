@@ -21,7 +21,6 @@ export class RoomsList extends CustomElement {
         this.listenTo(_converse.chatboxes, 'remove', this.renderIfChatRoom)
         this.listenTo(_converse.chatboxes, 'destroy', this.renderIfChatRoom)
         this.listenTo(_converse.chatboxes, 'change', this.renderIfRelevantChange)
-
         this.requestUpdate();
     }
 

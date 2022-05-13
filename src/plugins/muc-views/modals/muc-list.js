@@ -125,8 +125,11 @@ export default BootstrapModal.extend({
      * @param { HTMLElement } iq
      */
     onRoomsFound (iq) {
+        _converse.log.info("muc-list \",onRoomsFound\" - entrou");
         this.loading_items = false;
         const rooms = iq ? sizzle('query item', iq) : [];
+		_converse.log.info(rooms.length);
+		_converse.log.info("Salas " + rooms.length);
         if (rooms.length) {
             this.model.set({'feedback_text': __('Groupchats found')}, {'silent': true});
             this.items = rooms.map(getAttributes);
@@ -134,6 +137,8 @@ export default BootstrapModal.extend({
             this.items = [];
             this.model.set({'feedback_text': __('No groupchats found')}, {'silent': true});
         }
+		_converse.log.info(rooms);
+        _converse.log.info("muc-list \"onRoomsFound\" - saiu");
         this.render();
         return true;
     },
@@ -144,11 +149,14 @@ export default BootstrapModal.extend({
      * @method _converse.ChatRoomView#updateRoomsList
      */
     updateRoomsList () {
+        _converse.log.info("muc-list this.model.get('muc_domain') " + this.model.get('muc_domain'));
+        _converse.log.info("muc-list _converse.connection.jid " + _converse.connection.jid);
         const iq = $iq({
             'to': this.model.get('muc_domain'),
             'from': _converse.connection.jid,
             'type': "get"
         }).c("query", {xmlns: Strophe.NS.DISCO_ITEMS});
+        _converse.log.info("muc-list _converse.connection.jid " + _converse.connection.jid);
         api.sendIQ(iq)
             .then(iq => this.onRoomsFound(iq))
             .catch(() => this.onRoomsFound())
