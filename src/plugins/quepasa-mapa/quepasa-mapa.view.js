@@ -64,6 +64,7 @@ export class Mapa extends CustomElement {
 		//this.render();
 		//api.elements.define('quepasa-mapa', Mapa);
 		//this.render();
+        console.log(document.getElementById('mapa'));
         return true;
     }
 

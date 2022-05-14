@@ -64,72 +64,133 @@
 </script>
 
     <script>
+        var map;
+        var markers = [];
 
-          function criaMarcador(lat, lng, icone, mensagem, mouseout=true){
-        	if (typeof map !== 'undefined'){
-	
-	
-	              
-	            var userMarker = new google.maps.Marker({
-	                position: { lat: lat, lng: lng },
-	                map: map
-	            });
-	
-	                userMarker.setIcon(icone);
-	
-	            var infowindow = new google.maps.InfoWindow({
-	              content: mensagem
-	            });
-	            google.maps.event.addListener(userMarker, 'click', function() {
-	              infowindow.open(map,userMarker);
-	            });
-	            /*
-	            google.maps.event.addListener(userMarker, 'mouseover', function() {
-	              infowindow.open(map,userMarker);
-	            });*/
-	            google.maps.event.addListener(map, 'click', function() {
-	              infowindow.close(map,userMarker);
-	            });/*
-	            if(mouseout){
-	                google.maps.event.addListener(userMarker, 'mouseout', function() {
-	                  infowindow.close(map,userMarker);
-	                });
-	
-	            }*/
-	
-	            return userMarker;
-	          }
-          }
+        function criarMarcadorGoogle(lat, lng, icone, mensagem){
+            var marker = new google.maps.Marker({
+                position: { lat: lat, lng: lng },
+                map: map
+            });
+            marker.setIcon(icone);
 
-        function initMap() {
+            var infowindow = new google.maps.InfoWindow({
+                content: mensagem
+            });
+            marker.infowindow = infowindow;
 
-            var im = 'http://www.robotwoods.com/dev/misc/bluecircle.png';
-            var myLatLng = null;
+            return marker;
+        }
 
-              map = new google.maps.Map(document.getElementById("mapa"), {
-                center: { lat: -34.397, lng: 150.644 },
-                zoom: 14,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-              });
+        function adicionarAcoesMarcadorClique(marker){
+                google.maps.event.addListener(marker, 'click', function() {
+                    for (let m of markers) {
+                        m.infowindow.close(map,marker);
+                    }
+
+                    marker.clicked = true;
+                    marker.infowindow.open(map,marker);
+
+                });
+
+                google.maps.event.addListener(map, 'click', function() {
+                    marker.infowindow.close(map,marker);
+                    marker.clicked = false;
+
+                });
+
+        }
+
+        function adicionarAcoesMarcadorHover(marker){
+                google.maps.event.addListener(marker, 'mouseover', function() {
+                    marker.infowindow.open(map,marker);
+
+                });
+
+                google.maps.event.addListener(marker, 'mouseout', function() {
+                    if(!marker.clicked){
+                        marker.infowindow.close(map,marker);
+                    }
+
+                });
+        }
+
+        function criaMarcador(lat, lng, icone, mensagem){
+            if (typeof map !== 'undefined'){
+                
+                var marker = criarMarcadorGoogle(lat, lng, icone, mensagem);
+
+                adicionarAcoesMarcadorClique(marker);
+                adicionarAcoesMarcadorHover(marker);
 
 
-            var userMarker = criaMarcador(-34.397, 150.644, im, "Você está aqui!");
+                markers.push(marker);
+                return marker;
+            }
 
+        }
 
-             navigator.geolocation.getCurrentPosition(
+        function criarMarcadores(){ 
+            criaMarcador(0, 0, 'http://www.robotwoods.com/dev/misc/bluecircle.png',
+                "Você está aqui!");
+
+            var salas = document.getElementsByClassName('marcadores');
+
+            var i = 0;
+            for (let sala of salas) {
+                var lat;
+                var lon;
+                i++;
+                if(i == 1){
+                    lat = -15.778466324418028;
+                    lon = -47.88605394609443;
+                }
+                if(i == 2){
+                    lat = -15.778466324418028;
+                    lon = -47.90652601488105;
+                }
+                if(i == 3){
+                    lat = -15.782533909674745;
+                    lon = -47.921914382830956;
+                }
+
+                criaMarcador(lat, lon, null,
+                    "<b>" + sala.dataset.roomName + "</b><br />\
+                    <a href='#' \
+                    onclick=\"document.getElementById('link-"+sala.dataset.roomJid+"').click()\" \
+                    >Entrar na sala</a>");
+
+            }
+
+        }
+
+        function centralizaPosicaoAtual(){
+            navigator.geolocation.getCurrentPosition(
                 (position) => {
-                  const pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                  };
+                    const pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
 
-                  userMarker.setPosition(pos);
-                  map.setCenter(pos);
+                    markers[0].setPosition(pos);
+                    map.setCenter(pos);
                 },
                 () => {
                 }
-              );
+            );
+        }
 
+        function initMap() {
+            var myLatLng = null;
+
+            map = new google.maps.Map(document.getElementById("mapa"), {
+                zoom: 14,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+                
+            criarMarcadores();
+
+            centralizaPosicaoAtual();   
 
 
         }

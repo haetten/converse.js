@@ -28,15 +28,23 @@ export default (o) => {
 				${texto_carregando()}
 				</div>
 			</div>
-			${scripts()}
-			<script>
+			
+			<div id="marcadores" style="display:none">
 			${repeat(o.items, item => item.jid, item => tpl_item(o, item))}
-			</script>
+			</div>
 			
 		`;
 	}
 	else{
-		return html`...`;
+		return html`
+		    <div>
+		        <div id="mapa"
+					style="display:block; width:100%; height: 100vh; position: static"
+					class="flyout box-flyout"
+				>
+				${texto_carregando()}
+				</div>
+			</div>`;
 	}
 }
 
@@ -46,38 +54,24 @@ const tpl_item = (o, item) => {
 	
 */ 
 	if(o && o.items && o.items.length>0){
-		criaMarcador(-15.778466324418028, -47.88605394609443, null, "Sala 01");
+		//console.log(item.jid);
 	}
     return html`
-		
-        criaMarcador(-15.782533909674745, -47.921914382830956, 
-                    null,
-                    "${item.name} <a href='#' @click=${o.openRoom}>clique</a>"
-                    , true);
+
+        <a id="link-${item.jid}"
+        class="open-room available-room w-100 marcadores"
+        @click=${o.openRoom}
+        data-room-jid="${item.jid}"
+        data-room-name="${item.name}"
+        title="Entrar na sala ${item.name}"
+        href="#">${item.name || item.jid}</a>
     `;
 }
 
 function texto_carregando () {
-    return html`
-			<center>
+    return html`			<center>
 		          <span>Que<span class="subdued">Pasa</span></span>
 			</center>
 	`;
 }
 
-function scripts () {
-    return html`
-
-		 	<script>
-		
-		            criaMarcador(-15.778466324418028, -47.88605394609443, null, "Sala 01");
-		            criaMarcador(-15.779292288838215, -47.88652601488105, null, "Sala 02");
-		            
-		            criaMarcador(-15.782533909674745, -47.921914382830956, 
-		                        null,
-		                        "Sala 03 <a href='www.google.com'>clique</a>"
-		                        , true);
-					
-		    </script>
-	`;
-}
