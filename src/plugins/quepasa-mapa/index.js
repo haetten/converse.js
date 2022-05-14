@@ -9,11 +9,7 @@ converse.plugins.add('quepasa-mapa', {
 
 	initialize () {
         _converse.log.info("The \"quepasa-mapa\" plugin is being initialized");
-        //api.rooms.open("sala3@muc.localhost", "sala3@muc.localhost", true);
-		
-        //await u.waitUntil(() => _converse.xmppstatus.vcard.get('fullname'));
-
-	},
+	}
 	
 });
 

@@ -3,23 +3,16 @@ import { CustomElement } from 'shared/components/element.js';
 import { _converse, api, converse } from "@converse/headless/core";
 const { Strophe, u, sizzle, $iq } = converse.env;
 import { getAttributes } from '@converse/headless/shared/parsers';
-import MUCListModal from 'plugins/muc-views/modals/muc-list.js';
-import { initStorage } from '@converse/headless/utils/storage.js';
-import RoomsListModel from './quepasa-mapa.model.js';
-import BootstrapModal from "plugins/modal/base.js";
-
-
-
+//import MUCListModal from 'plugins/muc-views/modals/muc-list.js';
+//import { initStorage } from '@converse/headless/utils/storage.js';
+//import RoomsListModel from './quepasa-mapa.model.js';
+//import BootstrapModal from "plugins/modal/base.js";
 /*
-import { CustomElement } from 'shared/components/element.js';
 import { __ } from 'i18n';
-import { initStorage } from '@converse/headless/utils/storage.js';
 import { isUniView } from '@converse/headless/utils/core.js';
-const { Strophe, u } = converse.env;
 */
 
 export class Mapa extends CustomElement {
-
 
     render () {
          return tpl_mapa(this);
@@ -44,16 +37,13 @@ export class Mapa extends CustomElement {
             room.close();
         }
     }
-
-
     
     // Handle the IQ stanza returned from the server, containing all its public groupchats.    
     onRoomsFound (iq) {
-        // _converse.log.info("\"onRoomsFound\" - entrou" + iq);
-
+        console.log(iq);
         const rooms = iq ? sizzle('query item', iq) : [];
 		this.rooms = rooms;
-		// _converse.log.info("Salas " + rooms.length);
+
         if (rooms.length) {
             this.items = rooms.map(getAttributes);
         } else {
@@ -61,25 +51,17 @@ export class Mapa extends CustomElement {
         }
         
         this.requestUpdate();
-		//this.render();
-		//api.elements.define('quepasa-mapa', Mapa);
-		//this.render();
-        console.log(document.getElementById('mapa'));
         return true;
     }
 
     // Send an IQ stanza to the server asking for all groupchats
     updateRoomsList () {
-	        // _converse.log.info("[quepasa-mapa.view] _converse.xmppstatus" + _converse.xmppstatus);
-	        // _converse.log.info("[quepasa-mapa.view] _converse.connection.jid" + _converse.connection.jid);
-        	
-	        // _converse.log.info("buscando salas... " + api.settings.get('muc_domain'));
-	        // _converse.log.info("buscando salas... " + this.model.get('muc_domain'));
 	        const iq = $iq({
-	            'to': "muc.localhost", //this.model.get('muc_domain'),
+	            'to': api.settings.get('muc_domain'),
 	            'from': _converse.connection.jid, //_converse.connection.jid,
 	            'type': "get"
 	        }).c("query", {xmlns: Strophe.NS.DISCO_ITEMS});
+            console.log(iq);
 	        api.sendIQ(iq)
 	            .then(iq => this.onRoomsFound(iq))
 	
@@ -87,14 +69,11 @@ export class Mapa extends CustomElement {
 
     initialize () {
         this.items = [];
-        // _converse.log.info("[quepasa-mapa.view - initialize]");
-
         _converse.api.listen.on('connected', () => {
 			this.updateRoomsList ();
 		});
 
     }
-
 
 
 }
