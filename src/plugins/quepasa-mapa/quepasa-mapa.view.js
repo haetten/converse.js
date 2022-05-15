@@ -40,12 +40,28 @@ export class Mapa extends CustomElement {
     
     // Handle the IQ stanza returned from the server, containing all its public groupchats.    
     onRoomsFound (iq) {
-        console.log(iq);
         const rooms = iq ? sizzle('query item', iq) : [];
 		this.rooms = rooms;
-
         if (rooms.length) {
             this.items = rooms.map(getAttributes);
+
+            var i = 0;
+            for (let item of this.items) {
+                i++;
+                if(i % 1 == 0){
+                    item.lat = -15.778466324418028;
+                    item.lng = -47.88605394609443;
+                }
+                if(i % 2 == 0){
+                    item.lat = -15.778466324418028;
+                    item.lng = -47.90652601488105;
+                }
+                if(i % 3 == 0){
+                    item.lat = -15.782533909674745;
+                    item.lng = -47.921914382830956;
+                }
+            }
+
         } else {
             this.items = [];
         }
@@ -61,7 +77,7 @@ export class Mapa extends CustomElement {
 	            'from': _converse.connection.jid, //_converse.connection.jid,
 	            'type': "get"
 	        }).c("query", {xmlns: Strophe.NS.DISCO_ITEMS});
-            console.log(iq);
+
 	        api.sendIQ(iq)
 	            .then(iq => this.onRoomsFound(iq))
 	

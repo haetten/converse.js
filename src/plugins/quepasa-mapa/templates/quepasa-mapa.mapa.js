@@ -6,8 +6,6 @@ import { repeat } from 'lit/directives/repeat.js';
 
 
 export default (o) => {
-    _converse.log.info("\"quepasa-mapa\" - no template");
-
 	if(o && o.items && o.items.length>0){
 /*
 		_converse.log.info(o.items);
@@ -50,9 +48,6 @@ export default (o) => {
 
 
 const tpl_item = (o, item) => {
-	/*
-	
-*/ 
 	if(o && o.items && o.items.length>0){
 		//console.log(item.jid);
 	}
@@ -63,6 +58,8 @@ const tpl_item = (o, item) => {
         @click=${o.openRoom}
         data-room-jid="${item.jid}"
         data-room-name="${item.name}"
+        data-room-lat="${item.lat}"
+        data-room-lng="${item.lng}"
         title="Entrar na sala ${item.name}"
         href="#">${item.name || item.jid}</a>
     `;
