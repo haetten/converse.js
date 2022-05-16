@@ -7,16 +7,6 @@ import { repeat } from 'lit/directives/repeat.js';
 
 export default (o) => {
 	if(o && o.items && o.items.length>0){
-/*
-		_converse.log.info(o.items);
-		_converse.log.info(o.rooms);
-		_converse.log.info(o.items.length);
-		_converse.log.info(o.rooms.length);
-		
-		for (let value of o.items) {
-			_converse.log.info(value.jid);
-		}*/
-		
 	    return html`
 		    <div>
 		        <div id="mapa"
@@ -48,9 +38,6 @@ export default (o) => {
 
 
 const tpl_item = (o, item) => {
-	if(o && o.items && o.items.length>0){
-		//console.log(item.jid);
-	}
     return html`
 
         <a id="link-${item.jid}"
@@ -60,6 +47,9 @@ const tpl_item = (o, item) => {
         data-room-name="${item.name}"
         data-room-lat="${item.lat}"
         data-room-lng="${item.lng}"
+        data-room-raio="${item.raio}"
+        data-room-horarioAbertura="${item.horarioAbertura}"
+        data-room-horarioFechamento="${item.horarioFechamento}"
         title="Entrar na sala ${item.name}"
         href="#">${item.name || item.jid}</a>
     `;

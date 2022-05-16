@@ -38,35 +38,36 @@ export class Mapa extends CustomElement {
         }
     }
     
+	updateItem(data, item){
+		item.raio = data[1];
+		item.lat = data[2];
+		item.lng = data[3];
+		item.horarioAbertura = data[4];
+		item.horarioFechamento = data[5];
+	}
+	
+	async getComplementaryInfo(){
+		for (let item of this.items) {
+			await fetch("http://localhost:8081/quepasa-api/sala/"+item.jid)
+			.then( (response) => response.json())
+			.then((data)=> this.updateItem(data, item))
+			.catch( (error) => console.log(error));
+		}
+		this.requestUpdate();        
+	}
+
     // Handle the IQ stanza returned from the server, containing all its public groupchats.    
     onRoomsFound (iq) {
         const rooms = iq ? sizzle('query item', iq) : [];
 		this.rooms = rooms;
-        if (rooms.length) {
-            this.items = rooms.map(getAttributes);
-
-            var i = 0;
-            for (let item of this.items) {
-                i++;
-                if(i % 1 == 0){
-                    item.lat = -15.778466324418028;
-                    item.lng = -47.88605394609443;
-                }
-                if(i % 2 == 0){
-                    item.lat = -15.778466324418028;
-                    item.lng = -47.90652601488105;
-                }
-                if(i % 3 == 0){
-                    item.lat = -15.782533909674745;
-                    item.lng = -47.921914382830956;
-                }
-            }
+		if (rooms.length) {
+			this.items = rooms.map(getAttributes);
+			this.getComplementaryInfo();
 
         } else {
             this.items = [];
         }
         
-        this.requestUpdate();
         return true;
     }
 
