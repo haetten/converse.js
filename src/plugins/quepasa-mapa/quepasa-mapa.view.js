@@ -51,7 +51,7 @@ export class Mapa extends CustomElement {
 		for (let item of this.items) {
 			var host = "http://localhost:8081";
 			var url = host + "/quepasa-api/sala/"+item.jid.replace("@"+api.settings.get('muc_domain'), "");
-			console.log(url);
+
 			await fetch(url)
 			.then( (response) => response.json())
 			.then((data)=> this.updateItem(data, item))
