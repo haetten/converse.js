@@ -59,7 +59,7 @@
         bosh_service_url: 'http://10.67.123.75:5280/',
         message_archiving: 'always',
         view_mode: 'fullscreen',
-        whitelisted_plugins: ['quepasa', 'quepasa-mapa'],
+        whitelisted_plugins: ['quepasa-mapa'],
         muc_domain: 'muc.localhost'
     });
 </script>
@@ -139,23 +139,6 @@
 
             var i = 0;
             for (let sala of salas) {
-                /*
-                var lat;
-                var lon;
-                i++;
-                if(i == 1){
-                    lat = -15.778466324418028;
-                    lon = -47.88605394609443;
-                }
-                if(i == 2){
-                    lat = -15.778466324418028;
-                    lon = -47.90652601488105;
-                }
-                if(i == 3){
-                    lat = -15.782533909674745;
-                    lon = -47.921914382830956;
-                }
-                */
                 criaMarcador(sala.dataset.roomLat, sala.dataset.roomLng, null,
                     "<b>" + sala.dataset.roomName + "</b><br />\
                     <a href='#' \
@@ -195,6 +178,7 @@
 
             centralizaPosicaoAtual();   
 
+            //document.getElementById('controlbox').style.display='none';
 
         }
 
