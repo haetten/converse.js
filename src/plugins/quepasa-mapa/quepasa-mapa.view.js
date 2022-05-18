@@ -45,28 +45,35 @@ export class Mapa extends CustomElement {
 		item.lng = data[3];
 		item.horarioAbertura = data[4];
 		item.horarioFechamento = data[5];
+		console.log(item.jid);
 	}
 	
 	async getComplementaryInfo(){
 		for (let item of this.items) {
-			var host = "http://localhost:8081";
+			var host = "http://10.67.123.75:8081";
 			var url = host + "/quepasa-api/sala/"+item.jid.replace("@"+api.settings.get('muc_domain'), "");
 
 			await fetch(url)
 			.then( (response) => response.json())
 			.then((data)=> this.updateItem(data, item))
 			.catch( (error) => console.log(error));
-		}
-		this.requestUpdate();        
+		} 
+		
 	}
-
+	
+	async getMarkersAndUpdateMap(){
+		await this.getComplementaryInfo();
+		await this.requestUpdate();  
+		initMap();
+	}
+	
     // Handle the IQ stanza returned from the server, containing all its public groupchats.    
     onRoomsFound (iq) {
         const rooms = iq ? sizzle('query item', iq) : [];
 		this.rooms = rooms;
 		if (rooms.length) {
 			this.items = rooms.map(getAttributes);
-			this.getComplementaryInfo();
+			this.getMarkersAndUpdateMap();
 
         } else {
             this.items = [];

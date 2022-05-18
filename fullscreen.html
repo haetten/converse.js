@@ -8,19 +8,16 @@
     <meta name="author" content="JC Brand" />
     <meta name="keywords" content="xmpp chat webchat converse.js" />
     <link rel="shortcut icon" type="image/ico" href="/dist/favicon.ico"/>
-    <!-- <script type="text/javascript" src="inverse-analytics.js"></script>  -->
+    <script type="text/javascript" src="inverse-analytics.js"></script>
     <noscript><p><img src="//stats.opkode.com/piwik.php?idsite=5" style="border:0;" alt="" /></p></noscript>
     <link rel="manifest" href="./manifest.json">
     <link type="text/css" rel="stylesheet" media="screen" href="/dist/converse.min.css" />
     <script src="https://cdn.conversejs.org/3rdparty/libsignal-protocol.min.js"></script>
     <script src="/dist/converse.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd7NyFL18n33jXglGX8CpWFnZHBTda-2Q">
-        </script>
 </head>
 <body class="converse-fullscreen">
 <noscript>You need to enable JavaScript to run the Converse.js chat app.</noscript>
-<div id="conversejs-bg" style="display:none;"></div>
-<quepasa-mapa></quepasa-mapa>
+<div id="conversejs-bg"></div>
 <script>
     /*
     @licstart
@@ -50,156 +47,15 @@
     For more information, please refer to <http://unlicense.org/>
     @licend
     */
-
-
     converse.initialize({
         authentication: 'login',
         auto_away: 300,
         auto_reconnect: true,
-        bosh_service_url: 'http://localhost:5280/',
+        //bosh_service_url: 'https://conversejs.org/http-bind/', // Please use this connection manager only for testing purposes
+        bosh_service_url: 'http://10.67.123.75:5280/',
         message_archiving: 'always',
-        view_mode: 'fullscreen',
-        whitelisted_plugins: ['quepasa', 'quepasa-mapa'],
-        muc_domain: 'muc.localhost'
+        view_mode: 'fullscreen'
     });
 </script>
-
-    <script>
-        var map;
-        var markers = [];
-
-        function criarMarcadorGoogle(lat, lng, icone, mensagem){
-            var marker = new google.maps.Marker({
-                position: { lat: lat, lng: lng },
-                map: map
-            });
-            marker.setIcon(icone);
-
-            var infowindow = new google.maps.InfoWindow({
-                content: mensagem
-            });
-            marker.infowindow = infowindow;
-
-            return marker;
-        }
-
-        function adicionarAcoesMarcadorClique(marker){
-                google.maps.event.addListener(marker, 'click', function() {
-                    for (let m of markers) {
-                        m.infowindow.close(map,marker);
-                    }
-
-                    marker.clicked = true;
-                    marker.infowindow.open(map,marker);
-
-                });
-
-                google.maps.event.addListener(map, 'click', function() {
-                    marker.infowindow.close(map,marker);
-                    marker.clicked = false;
-
-                });
-
-        }
-
-        function adicionarAcoesMarcadorHover(marker){
-                google.maps.event.addListener(marker, 'mouseover', function() {
-                    marker.infowindow.open(map,marker);
-
-                });
-
-                google.maps.event.addListener(marker, 'mouseout', function() {
-                    if(!marker.clicked){
-                        marker.infowindow.close(map,marker);
-                    }
-
-                });
-        }
-
-        function criaMarcador(lat, lng, icone, mensagem){
-            if (typeof map !== 'undefined'){
-                
-                var marker = criarMarcadorGoogle(parseFloat(lat), parseFloat(lng), icone, mensagem);
-
-                adicionarAcoesMarcadorClique(marker);
-                adicionarAcoesMarcadorHover(marker);
-
-
-                markers.push(marker);
-                return marker;
-            }
-
-        }
-
-        function criarMarcadores(){ 
-            criaMarcador(0, 0, 'http://www.robotwoods.com/dev/misc/bluecircle.png',
-                "Você está aqui!");
-
-            var salas = document.getElementsByClassName('marcadores');
-
-            var i = 0;
-            for (let sala of salas) {
-                /*
-                var lat;
-                var lon;
-                i++;
-                if(i == 1){
-                    lat = -15.778466324418028;
-                    lon = -47.88605394609443;
-                }
-                if(i == 2){
-                    lat = -15.778466324418028;
-                    lon = -47.90652601488105;
-                }
-                if(i == 3){
-                    lat = -15.782533909674745;
-                    lon = -47.921914382830956;
-                }
-                */
-                criaMarcador(sala.dataset.roomLat, sala.dataset.roomLng, null,
-                    "<b>" + sala.dataset.roomName + "</b><br />\
-                    <a href='#' \
-                    onclick=\"document.getElementById('link-"+sala.dataset.roomJid+"').click()\" \
-                    >Entrar na sala</a>");
-
-            }
-
-        }
-
-        function centralizaPosicaoAtual(){
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                    };
-
-                    markers[0].setPosition(pos);
-                    map.setCenter(pos);
-                },
-                () => {
-                }
-            );
-        }
-
-        function initMap() {
-            var myLatLng = null;
-
-            map = new google.maps.Map(document.getElementById("mapa"), {
-                zoom: 14,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            });
-                
-            criarMarcadores();
-
-            centralizaPosicaoAtual();   
-
-
-        }
-        setTimeout(initMap,5000);
-
-
-
-    </script>
 </body>
 </html>
