@@ -6,6 +6,7 @@ const common = require("./webpack.common.js");
 const path = require('path');
 const webpack = require('webpack');
 const { merge }  = require("webpack-merge");
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 const plugins = [
     new MiniCssExtractPlugin({filename: '../dist/converse.min.css'}),
@@ -26,7 +27,13 @@ const plugins = [
     }),
     new webpack.DefinePlugin({ // This makes it possible for us to safely use env vars on our code
         'process.env.ASSET_PATH': JSON.stringify(ASSET_PATH)
-    })
+    }),
+    new WorkboxPlugin.GenerateSW({
+       // these options encourage the ServiceWorkers to get in there fast
+       // and not allow any straggling "old" SWs to hang around
+       clientsClaim: true,
+       skipWaiting: true,
+     }),
 ];
 
 module.exports = merge(common, {
