@@ -1,14 +1,11 @@
 {
-  "short_name": "Converse",
-  "name": "Converse Chat",
-  "description": "Messaging Freedom",
-  "version": "9.1.1",
+  "short_name": "QuePasa",
+  "name": "QuePasa",
+  "description": "Comunicação Georreferenciada",
+  "version": "1.0.0",
   "categories": ["social"],
+  "crossorigin": "use-credentials",
   "icons": [
-    {
-      "src": "dist/images/logo/conversejs-filled-512.png",
-      "sizes": "512x512"
-    },
     {
       "src": "dist/images/logo/conversejs-filled-192.png",
       "sizes": "192x192"
@@ -18,13 +15,23 @@
       "sizes": "192x192"
     },
     {
+      "src": "dist/images/logo/conversejs-filled-512.png",
+      "sizes": "512x512"
+    },
+    {
       "src": "dist/images/logo/conversejs-filled-512.svg",
       "sizes": "512x512"
+    },
+    {
+      "src": "dist/images/logo/conversejs-filled-512.svg",
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
   ],
-  "start_url": "/fullscreen.html",
-  "background_color": "#397491",
-  "display": "standalone",
+  "id":"index.html",
+  "start_url": "/",
+  "display": "fullscreen",
   "scope": "/",
-  "theme_color": "#397491"
+  "background_color": "#6600CC",
+  "theme_color": "#6600CC"
 }

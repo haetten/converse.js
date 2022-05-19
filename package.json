@@ -111,6 +111,9 @@
     "dompurify": "^2.3.1",
     "favico.js-slevomat": "^0.3.11",
     "jed": "1.1.1",
-    "lit": "^2.2.2"
+    "lit": "^2.2.2",
+    "sw-toolbox": "^3.6.0",
+    "webpack-pwa-manifest": "^4.3.0",
+    "workbox-webpack-plugin": "^6.5.3"
   }
 }
