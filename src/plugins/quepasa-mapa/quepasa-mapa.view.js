@@ -3,14 +3,8 @@ import { CustomElement } from 'shared/components/element.js';
 import { _converse, api, converse } from "@converse/headless/core";
 const { Strophe, u, sizzle, $iq } = converse.env;
 import { getAttributes } from '@converse/headless/shared/parsers';
-//import MUCListModal from 'plugins/muc-views/modals/muc-list.js';
-//import { initStorage } from '@converse/headless/utils/storage.js';
-//import RoomsListModel from './quepasa-mapa.model.js';
-//import BootstrapModal from "plugins/modal/base.js";
-/*
-import { __ } from 'i18n';
-import { isUniView } from '@converse/headless/utils/core.js';
-*/
+import { MapAPI } from "./quepasa-mapapi.js"
+
 
 export class Mapa extends CustomElement {
 
@@ -25,7 +19,7 @@ export class Mapa extends CustomElement {
         const data = {
             'name': name || Strophe.unescapeNode(Strophe.getNodeFromJid(jid)) || jid
         }
-		console.log('entrando');
+
         api.rooms.open(jid, data, true);
     }
 
@@ -45,12 +39,13 @@ export class Mapa extends CustomElement {
 		item.lng = data[3];
 		item.horarioAbertura = data[4];
 		item.horarioFechamento = data[5];
-		console.log(item.jid);
+
 	}
 	
 	async getComplementaryInfo(){
 		for (let item of this.items) {
-			var host = "http://10.67.123.75:8081";
+			//var host = "http://10.67.123.75:8081";
+			var host = "http://192.168.0.19:8081";
 			var url = host + "/quepasa-api/sala/"+item.jid.replace("@"+api.settings.get('muc_domain'), "");
 
 			await fetch(url)
@@ -63,8 +58,9 @@ export class Mapa extends CustomElement {
 	
 	async getMarkersAndUpdateMap(){
 		await this.getComplementaryInfo();
-		await this.requestUpdate();  
-		initMap();
+		await this.requestUpdate();
+		
+		MapAPI.initMap();
 	}
 	
     // Handle the IQ stanza returned from the server, containing all its public groupchats.    
