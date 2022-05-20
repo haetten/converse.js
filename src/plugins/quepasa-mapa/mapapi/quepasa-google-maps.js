@@ -1,6 +1,10 @@
 
 module.exports = {
 
+	setCenter : function(map, pos){
+		map.setCenter(pos);
+	},
+	
 	criaMapa : function(){
 		return new google.maps.Map(document.getElementById("mapa"), {
 	                zoom: 14,

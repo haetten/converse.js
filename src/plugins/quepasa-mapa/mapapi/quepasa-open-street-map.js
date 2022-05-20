@@ -1,29 +1,30 @@
 
 module.exports = {
 
-	criaMapa : function(){
-		return new google.maps.Map(document.getElementById("mapa"), {
-	                zoom: 14,
-	                mapTypeId: google.maps.MapTypeId.ROADMAP
-		});
+	setCenter : function(map, pos){
+		map.setView(pos, 14);
 	},
 	
-	newMarker : function(map, lat, lng, icone, mensagem){
-	    var marker = new google.maps.Marker({
-	        position: { lat: lat, lng: lng },
-	        map: map
-	    });
-	    marker.setIcon(icone);
+
+	criaMapa : function(){		
+		var map = L.map(document.getElementById("mapa"));
+		
+		// Add OSM tile layer to the Leaflet map.
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+		    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+			}).addTo(map);
+			
+		return map;
+	},
 	
-	    var infowindow = new google.maps.InfoWindow({
-	        content: mensagem
-	    });
-	    marker.infowindow = infowindow;
-	
+	newMarker : function(map, lat, lng, icone, mensagem){	
+		var marker = L.marker(L.latLng(lat, lng)).addTo(map);
+
 	    return marker;
 	},
 	
 	adicionarAcoesMarcadorClique : function(map, markers, marker){
+		/*
 	        google.maps.event.addListener(marker, 'click', function() {
 	            for (let m of markers) {
 	                m.infowindow.close(map,marker);
@@ -38,11 +39,12 @@ module.exports = {
 	            marker.infowindow.close(map,marker);
 	            marker.clicked = false;
 	
-	        });
+	        });*/
 	
 	},
 	
 	adicionarAcoesMarcadorHover : function(map, marker){
+		/*
 	        google.maps.event.addListener(marker, 'mouseover', function() {
 	            marker.infowindow.open(map,marker);
 	
@@ -54,5 +56,6 @@ module.exports = {
 	            }
 	
 	        });
+*/
 	}
 }

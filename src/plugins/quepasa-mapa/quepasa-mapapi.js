@@ -1,4 +1,4 @@
-var mapAPI = require("./mapapi/quepasa-google-maps");
+//var mapAPI = require("./mapapi/quepasa-google-maps");
 var mapAPI = require("./mapapi/quepasa-open-street-map");
 
 export class MapAPI {
@@ -59,10 +59,9 @@ function centralizaPosicaoAtual(map){
 	                lng: position.coords.longitude,
 	            };
 	
-	   	 		const center = criaMarcador(map, 0, 0, 'http://www.robotwoods.com/dev/misc/bluecircle.png', "Você está aqui!");
-				center.setPosition(pos);
-	            //markers[0].setPosition(pos);
-	            map.setCenter(pos);
+	   	 		const center = criaMarcador(map, pos.lat, pos.lng, 'http://www.robotwoods.com/dev/misc/bluecircle.png', "Você está aqui!");
+				//center.setPosition(pos);
+				mapAPI.setCenter(map, pos);
 	        },
 	        () => {
 				console.log("Erro ao centralizar posição atual no mapa. Falha ao obter posição atual.");
