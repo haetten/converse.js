@@ -18,9 +18,10 @@
     <script src="https://cdn.conversejs.org/3rdparty/libsignal-protocol.min.js"></script>
     <script src="/dist/converse.min.js"></script>	
     <!-- MAPA -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd7NyFL18n33jXglGX8CpWFnZHBTda-2Q"></script>
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-	<link href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" rel="stylesheet"/>
+    <script src="https://maps.googleapis.com/maps/api/js?key=API_KEY"></script>
+	<script src="/src/plugins/quepasa-mapa/OpenLayers-2.13.1/OpenLayers.js"></script>
+    <script src="/src/plugins/quepasa-mapa/leaflet-1.8.0/leaflet.js"></script>
+	<link href="/src/plugins/quepasa-mapa/leaflet-1.8.0/leaflet.css" rel="stylesheet"/>
 	<!-- fim MAPA -->
 </head>
 <body class="converse-fullscreen">
@@ -39,6 +40,14 @@
         whitelisted_plugins: ['quepasa-mapa'],
         muc_domain: 'muc.localhost'
     });
+</script>
+
+
+<div id="demoMap" style="height:250px"></div>
+<script>
+    map = new OpenLayers.Map("demoMap");
+    map.addLayer(new OpenLayers.Layer.OSM());
+    map.zoomToMaxExtent();
 </script>
 
 </body>

@@ -12,6 +12,9 @@ module.exports = {
 		});
 	},
 	
+	
+	
+	
 	newMarker : function(map, lat, lng, icone, mensagem){
 	    var marker = new google.maps.Marker({
 	        position: { lat: lat, lng: lng },

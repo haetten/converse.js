@@ -1,5 +1,6 @@
 //var mapAPI = require("./mapapi/quepasa-google-maps");
-var mapAPI = require("./mapapi/quepasa-open-street-map");
+var mapAPI = require("./mapapi/quepasa-osm-leaflet");
+//var mapAPI = require("./mapapi/quepasa-osm-openlayers");
 
 export class MapAPI {
     static initMap() {
