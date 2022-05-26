@@ -20,14 +20,56 @@
     <script src="/dist/converse.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd7NyFL18n33jXglGX8CpWFnZHBTda-2Q">
         </script>
+	<style>
+		img.huechange { filter: hue-rotate(120deg); }
+		
+		.logo {
+			display:block;
+		    background-color: #555299;
+		    color: #fff;
+		    border-bottom: 0 solid transparent;
+		    
+		    transition: width .3s ease-in-out;
+		    height: 50px;
+		    font-size: 20px;
+		    line-height: 50px;
+		    text-align: center;
+		    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		    padding: 0 15px;
+		    font-weight: 300;
+		    overflow: hidden;
+		}
+		.offline {
+			display:block;
+		    border-bottom: 0 solid transparent;
+		    
+		    transition: width .3s ease-in-out;
+		    height: 100vh;
+		    font-size: 15px;
+		    line-height: 50px;
+		    text-align: center;
+		    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		    padding: 0 15px;
+		    font-weight: 300;
+		    overflow: hidden;
+		}
+	</style>
 </head>
 <body class="converse-fullscreen">
 
 
-Você está offline
+<div class="logo">
+	<span>Que<span class="subdued">Pasa</span></span>
+</div>
+
+<div class="offline">
+	<div>Você está offline!</div>
+	
+    <button type="button">⤾ Clique aqui para tentar novamente</button>
+</div>
 
 
-    <button type="button">⤾ Reload</button>
+
 
     <!-- Inline the page's JavaScript file. -->
     <script>

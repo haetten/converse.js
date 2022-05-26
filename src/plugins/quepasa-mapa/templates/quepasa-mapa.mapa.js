@@ -57,7 +57,7 @@ const tpl_item = (o, item) => {
 
 function texto_carregando () {
     return html`			<center>
-		          <span>Que<span class="subdued">Pasa</span></span>
+		          <span>Carregando<span class="subdued">Mapa</span></span>
 			</center>
 	`;
 }

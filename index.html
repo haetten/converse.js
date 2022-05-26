@@ -23,9 +23,32 @@
     <script src="/src/plugins/quepasa-mapa/leaflet-1.8.0/leaflet.js"></script>
 	<link href="/src/plugins/quepasa-mapa/leaflet-1.8.0/leaflet.css" rel="stylesheet"/>
 	<!-- fim MAPA -->
+	<style>
+		img.huechange { filter: hue-rotate(120deg); }
+		
+		.logo {
+			display:block;
+		    background-color: #555299;
+		    color: #fff;
+		    border-bottom: 0 solid transparent;
+		    
+		    transition: width .3s ease-in-out;
+		    height: 50px;
+		    font-size: 20px;
+		    line-height: 50px;
+		    text-align: center;
+		    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		    padding: 0 15px;
+		    font-weight: 300;
+		    overflow: hidden;
+		}
+	</style>
 </head>
 <body class="converse-fullscreen">
 <noscript>Habilite JavaScript para acessar o QuePasa.</noscript>
+<div class="logo">
+	<span>Que<span class="subdued">Pasa</span></span>
+</div>
 <quepasa-mapa></quepasa-mapa>
 <script>
 
@@ -40,14 +63,6 @@
         whitelisted_plugins: ['quepasa-mapa'],
         muc_domain: 'muc.localhost'
     });
-</script>
-
-
-<div id="demoMap" style="height:250px"></div>
-<script>
-    map = new OpenLayers.Map("demoMap");
-    map.addLayer(new OpenLayers.Layer.OSM());
-    map.zoomToMaxExtent();
 </script>
 
 </body>

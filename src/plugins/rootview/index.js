@@ -12,8 +12,8 @@ converse.plugins.add('converse-rootview', {
         // configuration settings.
         api.settings.extend({
             'auto_insert': true,
-            'theme': 'classic',
-            'dark_theme': 'dracula',
+            'theme': 'quepasa',
+            'dark_theme': 'quepasa_dark',
         });
 
         api.listen.on('chatBoxesInitialized', ensureElement);
