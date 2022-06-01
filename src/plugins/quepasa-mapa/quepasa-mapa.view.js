@@ -32,20 +32,21 @@ export class Mapa extends CustomElement {
             room.close();
         }
     }
-    
 	updateItem(data, item){
-		item.raio = data[1];
-		item.lat = data[2];
-		item.lng = data[3];
-		item.horarioAbertura = data[4];
-		item.horarioFechamento = data[5];
-
+		item.jid = data[0] + "@" + api.settings.get('muc_domain');
+		item.name = data[1];
+		item.raio = data[2];
+		item.lat = data[3];
+		item.lng = data[4];
+		item.horarioAbertura = data[5];
+		item.horarioFechamento = data[6];
 	}
 	
+ /*   
 	async getComplementaryInfo(){
 		for (let item of this.items) {
 			//var host = "http://10.67.123.75:8081";
-			var host = "http://192.168.0.19:8081";
+			var host = "http://localhost:8081";
 			var url = host + "/quepasa-api/sala/"+item.jid.replace("@"+api.settings.get('muc_domain'), "");
 
 			await fetch(url)
@@ -90,11 +91,40 @@ export class Mapa extends CustomElement {
 	            .then(iq => this.onRoomsFound(iq))
 	
     }
+*/
+
+    
+	updateItems(data){
+
+		for(let item of data){
+			var i = new Object;
+			console.log(item);
+			this.updateItem(item, i);
+			this.items.push(i);
+		}
+		console.log(this.items);
+	}
+	
+    async getSalasDeAPI () {
+		var host = "http://localhost:8081";
+		var url = host + "/quepasa-api/salas/";
+
+		await fetch(url)
+		.then( (response) => response.json())
+		.then((data)=> this.updateItems(data))
+		.catch( (error) => console.log(error));
+		
+		await this.requestUpdate();
+		
+		MapAPI.initMap();
+	}
+	
 
     initialize () {
         this.items = [];
         _converse.api.listen.on('connected', () => {
-			this.updateRoomsList ();
+			//this.updateRoomsList ();
+			this.getSalasDeAPI();
 		});
 
     }
